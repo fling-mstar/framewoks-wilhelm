@@ -389,7 +389,9 @@ void StreamPlayer::onPrepare() {
                     mPlaybackParams.sessionId);
             if (mPlayer == NULL) {
                 SL_LOGE("media player service failed to create player by app proxy");
-            } else if (mPlayer->setDataSource(mAppProxy /*IStreamSource*/) != NO_ERROR) {
+            // MStar Android Patch Begin
+            } else if (mPlayer->setDataSource((sp<IStreamSource>)mAppProxy /*IStreamSource*/) != NO_ERROR) {
+            // MStar Android Patch End
                 SL_LOGE("setDataSource failed");
                 mPlayer.clear();
             }
